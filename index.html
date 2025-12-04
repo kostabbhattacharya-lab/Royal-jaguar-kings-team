@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Royal Jaguar Kings - Official Team Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+
+        body{
+            font-family:'Poppins',sans-serif;
+            background:radial-gradient(circle at top,#020617 0,#020617 40%,#000311 100%);
+            color:#e5e7eb;
+            line-height:1.6;
+        }
+
+        .container{
+            max-width:1120px;
+            margin:0 auto;
+            padding:16px;
+        }
+
+        /* HEADER + NAV */
+        header{
+            background:linear-gradient(135deg,#020617,#020617 40%,#0b1220 100%);
+            border-bottom:1px solid rgba(148,163,184,0.5);
+            position:sticky;
+            top:0;
+            z-index:50;
+            box-shadow:0 10px 30px rgba(0,0,0,0.7);
+        }
+
+        .header-inner{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            padding-top:8px;
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .brand-logo{
+            width:56px;
+            height:56px;
+            border-radius:18px;
+            overflow:hidden;
+            border:2px solid #facc15;
+            background:#020617;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            position:relative;
+            box-shadow:0 0 22px rgba(250,204,21,0.5);
+        }
+        .brand-logo img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        .brand-logo-fallback{
+            font-weight:700;
+            font-size:18px;
+            font-family:'Bebas Neue',system-ui;
+            letter-spacing:0.16em;
+        }
+
+        .brand-text h1{
+            font-size:20px;
+            letter-spacing:0.18em;
+            text-transform:uppercase;
+            font-family:'Bebas Neue',system-ui;
+        }
+        .brand-text p{
+            font-size:11px;
+            color:#9ca3af;
+        }
+
+        nav{
+            margin-top:10px;
+            padding-bottom:10px;
+        }
+
+        .nav-links{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+        }
+        .nav-links a{
+            text-decoration:none;
+            color:#e5e7eb;
+            font-size:13px;
+            padding:6px 12px;
+            border-radius:999px;
+            border:1px solid transparent;
+            transition:all 0.18s ease;
+        }
+        .nav-links a:hover{
+            color:#facc15;
+            border-color:rgba(250,204,21,0.4);
+            background:rgba(15,23,42,0.9);
+        }
+        .nav-links a.active{
+            background:#facc15;
+            color:#020617;
+            border-color:#facc15;
+            font-weight:600;
+        }
+
+        /* HERO */
+        .hero{
+            margin-top:10px;
+            position:relative;
+            border-radius:22px;
+            overflow:hidden;
+            min-height:260px;
+            background:
+                linear-gradient(135deg,rgba(15,23,42,0.9),rgba(15,23,42,0.7)),
+                url("https://images.pexels.com/photos/26994840/pexels-photo-26994840/free-photo-of-wide-angle-view-of-scoreboard-and-cricket-field.jpeg")
+                center/cover no-repeat;
+        }
+        .hero::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:
+                radial-gradient(circle at top,rgba(250,204,21,0.2),transparent 55%),
+                linear-gradient(to bottom,rgba(0,0,0,0.5),rgba(0,0,0,0.85));
+        }
+        .hero-inner{
+            position:relative;
+            padding:26px 20px 22px;
+            display:flex;
+            justify-content:space-between;
+            gap:16px;
+            align-items:center;
+        }
+        .hero-text{
+            max-width:520px;
+        }
+        .hero-kicker{
+            font-size:11px;
+            letter-spacing:0.26em;
+            text-transform:uppercase;
+            color:#facc15;
+            margin-bottom:6px;
+        }
+        .hero-title{
+            font-family:'Bebas Neue',system-ui;
+            font-size:30px;
+            letter-spacing:0.18em;
+            text-transform:uppercase;
+            margin-bottom:6px;
+        }
+        .hero-subtitle{
+            font-size:13px;
+            color:#e5e7eb;
+        }
+        .hero-buttons{
+            margin-top:16px;
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+        .btn{
+            border-radius:999px;
+            padding:8px 18px;
+            font-size:13px;
+            border:1px solid transparent;
+            text-decoration:none;
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
+            cursor:pointer;
+            transition:all 0.18s ease;
+        }
+        .btn-primary{
+            background:#facc15;
+            color:#020617;
+            border-color:#facc15;
+            font-weight:600;
+        }
+        .btn-primary:hover{
+            filter:brightness(1.05);
+            box-shadow:0 16px 40px rgba(250,204,21,0.35);
+        }
+        .btn-ghost{
+            background:rgba(15,23,42,0.92);
+            color:#e5e7eb;
+            border-color:rgba(148,163,184,0.45);
+        }
+        .btn-ghost:hover{
+            border-color:#facc15;
+            color:#facc15;
+        }
+
+        /* HERO ANIMATION SIDE PANEL */
+        .hero-visual{
+            flex:1;
+            min-width:220px;
+            display:flex;
+            justify-content:flex-end;
+        }
+        .hero-widget{
+            width:220px;
+            border-radius:20px;
+            padding:10px 12px;
+            background:radial-gradient(circle at top,#020617 0,#020617 40%,#020617 100%);
+            border:1px solid rgba(148,163,184,0.7);
+            box-shadow:0 20px 50px rgba(0,0,0,0.9);
+            position:relative;
+            overflow:hidden;
+        }
+        .hero-widget-title{
+            font-size:12px;
+            text-transform:uppercase;
+            letter-spacing:0.12em;
+            color:#9ca3af;
+        }
+        .hero-widget-main{
+            margin-top:6px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:6px;
+        }
+        .hero-score{
+            font-family:'Bebas Neue',system-ui;
+            font-size:26px;
+            letter-spacing:0.12em;
+        }
+        .hero-score small{
+            font-size:13px;
+            opacity:0.9;
+        }
+        .hero-status{
+            font-size:11px;
+            color:#a5f3fc;
+        }
+        .hero-strip{
+            margin-top:10px;
+            height:40px;
+            border-radius:999px;
+            background:linear-gradient(90deg,#0f172a,#1d283a,#0f172a);
+            position:relative;
+            overflow:hidden;
+        }
+        .hero-strip::before{
+            content:"";
+            position:absolute;
+            width:140%;
+            height:2px;
+            top:50%;
+            left:-20%;
+            transform:translateY(-50%);
+            background:repeating-linear-gradient(90deg,#4ade80 0 16px,transparent 16px 26px);
+            opacity:0.7;
+        }
+
+        /* Animated ball */
+        .ball{
+            position:absolute;
+            width:18px;
+            height:18px;
+            border-radius:50%;
+            background:radial-gradient(circle at 30% 30%,#ffffff 0,#fecaca 20%,#dc2626 70%,#7f1d1d 100%);
+            box-shadow:0 0 12px rgba(248,113,113,0.9);
+            top:10px;
+            left:-20px;
+            animation:ball-run 3s linear infinite;
+        }
+        .ball::before{
+            content:"";
+            position:absolute;
+            inset:4px;
+            border-radius:50%;
+            border:2px dashed rgba(255,255,255,0.7);
+        }
+
+        .hero-widget-footer{
+            margin-top:8px;
+            font-size:10px;
+            color:#9ca3af;
+            display:flex;
+            justify-content:space-between;
+        }
+
+        @keyframes ball-run{
+            0%{transform:translateX(0) translateY(0);}
+            50%{transform:translateX(210px) translateY(6px);}
+            100%{transform:translateX(0) translateY(0);}
+        }
+
+        /* SECTIONS */
+        .section{
+            margin-top:24px;
+            background:#020617;
+            border-radius:18px;
+            border:1px solid #1f2937;
+            padding:18px;
+            box-shadow:0 18px 40px rgba(15,23,42,0.85);
+        }
+        .section-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+            margin-bottom:10px;
+        }
+        .section-title{
+            font-size:18px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        .section-title span.bar{
+            width:3px;
+            height:18px;
+            border-radius:999px;
+            background:linear-gradient(to bottom,#facc15,#22c55e);
+        }
+        .section-subtitle{
+            font-size:12px;
+            color:#9ca3af;
+        }
+
+        .home-grid{
+            margin-top:10px;
+            display:grid;
+            grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);
+            gap:16px;
+        }
+
+        .card{
+            background:radial-gradient(circle at top left,rgba(15,23,42,0.9),#020617);
+            border-radius:14px;
+            border:1px solid #1f2937;
+            padding:14px;
+        }
+
+        .card h4{
+            font-size:15px;
+            margin-bottom:6px;
+            color:#facc15;
+        }
+        .card p{
+            font-size:13px;
+            color:#d1d5db;
+        }
+
+        .pill{
+            display:inline-block;
+            padding:3px 9px;
+            border-radius:999px;
+            border:1px solid #4b5563;
+            font-size:11px;
+            margin-right:4px;
+            margin-top:4px;
+        }
+
+        /* TEAM STATS OVERVIEW */
+        .stat-grid{
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:10px;
+            margin-top:8px;
+        }
+        .stat{
+            padding:8px 10px;
+            border-radius:12px;
+            background:radial-gradient(circle at top left,rgba(250,204,21,0.18),#020617);
+            border:1px solid rgba(148,163,184,0.6);
+        }
+        .stat-label{
+            font-size:11px;
+            color:#9ca3af;
+        }
+        .stat-value{
+            font-size:15px;
+            font-weight:600;
+        }
+
+        /* TOP PERFORMERS PANEL */
+        .leader-layout{
+            display:grid;
+            grid-template-columns:minmax(0,1.2fr) minmax(0,1.4fr);
+            gap:14px;
+            margin-top:8px;
+        }
+
+        .leader-card{
+            background:#020617;
+            border-radius:14px;
+            border:1px solid #1f2937;
+            padding:12px;
+        }
+
+        .leader-tabs{
+            display:flex;
+            gap:8px;
+            margin-bottom:8px;
+        }
+        .leader-tab{
+            flex:1;
+            border:none;
+            padding:6px 8px;
+            border-radius:999px;
+            font-size:11px;
+            cursor:pointer;
+            text-transform:uppercase;
+            letter-spacing:0.12em;
+            background:rgba(15,23,42,0.9);
+            color:#e5e7eb;
+            border:1px solid rgba(55,65,81,0.9);
+            transition:all 0.18s ease;
+        }
+        .leader-tab.active{
+            background:#22c55e;
+            color:#022c22;
+            border-color:#22c55e;
+            box-shadow:0 0 14px rgba(34,197,94,0.9);
+        }
+
+        .metric-chips{
+            display:flex;
+            flex-wrap:wrap;
+            gap:6px;
+            margin-bottom:8px;
+        }
+        .metric-chip{
+            border:none;
+            padding:4px 9px;
+            border-radius:999px;
+            font-size:11px;
+            cursor:pointer;
+            background:rgba(15,23,42,0.9);
+            color:#e5e7eb;
+            border:1px solid rgba(55,65,81,0.9);
+            transition:all 0.18s ease;
+        }
+        .metric-chip.active{
+            background:#0ea5e9;
+            color:#022c22;
+            border-color:#0ea5e9;
+            box-shadow:0 0 14px rgba(14,165,233,0.85);
+        }
+
+        .leaders-list{
+            margin-top:4px;
+        }
+        .leader-row{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:8px;
+            padding:6px 8px;
+            border-radius:10px;
+            background:rgba(15,23,42,0.85);
+            margin-bottom:4px;
+            font-size:12px;
+            border:1px solid rgba(31,41,55,0.9);
+        }
+        .leader-left{
+            display:flex;
+            align-items:center;
+            gap:8px;
+        }
+        .leader-rank{
+            width:20px;
+            height:20px;
+            border-radius:7px;
+            font-size:11px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:linear-gradient(135deg,#22c55e,#0ea5e9);
+            color:#020617;
+            font-weight:700;
+        }
+        .leader-name{
+            font-size:13px;
+        }
+        .leader-metric{
+            font-size:12px;
+            color:#9ca3af;
+        }
+        .leader-value{
+            font-size:13px;
+            font-weight:600;
+        }
+        .leader-empty{
+            font-size:11px;
+            color:#9ca3af;
+            margin-top:4px;
+        }
+
+        .mini-legend{
+            font-size:12px;
+            color:#9ca3af;
+            margin-top:6px;
+        }
+
+        footer{
+            text-align:center;
+            padding:18px 0 22px;
+            font-size:11px;
+            color:#9ca3af;
+            margin-top:26px;
+        }
+
+        @media (max-width:900px){
+            .home-grid{grid-template-columns:1fr;}
+            .leader-layout{grid-template-columns:1fr;}
+        }
+        @media (max-width:768px){
+            .header-inner{
+                flex-direction:column;
+                align-items:flex-start;
+            }
+            .hero-inner{
+                flex-direction:column;
+            }
+            .hero-visual{
+                justify-content:flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-inner">
+        <div class="brand">
+            <div class="brand-logo">
+                <!-- Replace with real logo if you have -->
+                <!-- <img src="YOUR_LOGO_URL_HERE" alt="Royal Jaguar Kings Logo"> -->
+                <span class="brand-logo-fallback">RJK</span>
+            </div>
+            <div class="brand-text">
+                <h1>Royal Jaguar Kings</h1>
+                <p>Official Cricket Team • Since 2025</p>
+            </div>
+        </div>
+
+        <nav>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="players.html">Players</a>
+                <a href="tournament.html">Tournament</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-inner container">
+        <div class="hero-text">
+            <div class="hero-kicker">Royal Jaguar Kings • Cricket</div>
+            <div class="hero-title">Rule the Game. Hunt the Victory.</div>
+            <p class="hero-subtitle">
+                High-intensity cricket powered by fearless batting, smart bowling plans and sharp fielding.
+                This is the official hub for the Royal Jaguar Kings squad and stats.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="players.html" class="btn btn-primary">View Players & Stats</a>
+                <a href="tournament.html" class="btn btn-ghost">RJKPL Season 5</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-widget">
+                <div class="hero-widget-title">Live vibe (demo)</div>
+                <div class="hero-widget-main">
+                    <div>
+                        <div class="hero-score">RJK <small>0/0</small></div>
+                        <div class="hero-status">Overs 0.0 • Target –</div>
+                    </div>
+                    <div style="font-size:11px;color:#9ca3af;text-align:right;">
+                        Powerplay<br>Visual animation only
+                    </div>
+                </div>
+
+                <div class="hero-strip">
+                    <div class="ball"></div>
+                </div>
+
+                <div class="hero-widget-footer">
+                    <span>Boundary tracker</span>
+                    <span>Cricket-themed animation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="container">
+
+    <!-- ABOUT + TEAM SNAPSHOT -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-title">
+                <span class="bar"></span>
+                <span>About Royal Jaguar Kings</span>
+            </div>
+            <div class="section-subtitle">
+                Identity • Style • Quick overview
+            </div>
+        </div>
+
+        <div class="home-grid">
+            <div class="card">
+                <h4>Team Identity</h4>
+                <p>
+                    Royals in mindset, jaguars in instinct and kings on the scoreboard.
+                    The squad backs aggressive intent with discipline, trust and clear roles.
+                    Every match is treated like a final, every over is played with purpose.
+                </p>
+                <div style="margin-top:8px;">
+                    <span class="pill">Attacking batting</span>
+                    <span class="pill">Planned bowling</span>
+                    <span class="pill">High fielding energy</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Team Season Snapshot</h4>
+                <p style="font-size:12px;color:#9ca3af;">All numbers are currently set to 0. You can update them later.</p>
+                <div class="stat-grid">
+                    <div class="stat">
+                        <div class="stat-label">Matches Played</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Matches Won</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Total Runs Scored</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Total Wickets Taken</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOP PERFORMERS / LEADERBOARD -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-title">
+                <span class="bar"></span>
+                <span>Top Performers Preview</span>
+            </div>
+            <div class="section-subtitle">
+                All-time leaders – powered directly by your Players page stats
+            </div>
+        </div>
+
+        <div class="leader-layout">
+            <!-- LEFT: MODE + METRICS -->
+            <div class="leader-card">
+                <h4>Leaderboards (All-time)</h4>
+                <p style="font-size:12px;color:#9ca3af;margin-bottom:8px;">
+                    Choose batting or bowling, then pick a metric like most runs, best average, most wickets or best economy.
+                    Data comes from the same stats that you edit in <strong>players.html</strong>.
+                </p>
+
+                <div class="leader-tabs">
+                    <button class="leader-tab active" data-mode="batting">Batting</button>
+                    <button class="leader-tab" data-mode="bowling">Bowling</button>
+                </div>
+
+                <div class="metric-chips" id="metric-chips">
+                    <!-- Filled by JS -->
+                </div>
+
+                <div class="mini-legend">
+                    If all numbers are 0, you will see a placeholder message. As soon as you update runs and wickets in
+                    the Players page, this section will highlight your top performers.
+                </div>
+            </div>
+
+            <!-- RIGHT: LIST -->
+            <div class="leader-card">
+                <h4 id="leaders-title">Most Runs</h4>
+                <div class="leaders-list" id="leaders-list">
+                    <!-- Filled by JS -->
+                </div>
+                <div class="leader-empty" id="leaders-empty">
+                    No leaders yet. Update your player stats in <strong>players.html</strong> to see the top performers
+                    for each metric here.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LINKS -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-title">
+                <span class="bar"></span>
+                <span>Next Actions</span>
+            </div>
+            <div class="section-subtitle">
+                Jump into players or the tournament centre
+            </div>
+        </div>
+
+        <div class="home-grid">
+            <div class="card">
+                <h4>Explore the Squad</h4>
+                <p>
+                    Open the Players page to see each player’s dedicated profile card, all-time stats and breakdowns.
+                    Batting, bowling and fielding numbers auto-calculate key metrics such as averages and strike rates.
+                </p>
+                <p style="margin-top:10px;">
+                    <a href="players.html" class="btn btn-primary">Go to Players page</a>
+                </p>
+            </div>
+
+            <div class="card">
+                <h4>RJKPL – Tournament Hub</h4>
+                <p>
+                    Visit the Tournament page to see teams, logos, fixtures and premium match cards.
+                    Squads and fixtures follow the same design language as this home page for a unified feel.
+                </p>
+                <p style="margin-top:10px;">
+                    <a href="tournament.html" class="btn btn-ghost">Open Tournament details</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    © 2025 Royal Jaguar Kings Cricket Team. All rights reserved.
+</footer>
+
+<script>
+/*
+   This home page does NOT define player stats.
+   It loads them from players.html (the JSON inside <script id="players-data">).
+*/
+
+const battingMetrics = [
+  { key: "runs",            label: "Most Runs",             unit: "runs" },
+  { key: "battingAverage",  label: "Best Batting Average",  unit: "avg" },
+  { key: "fours",           label: "Most Fours",            unit: "4s" },
+  { key: "sixes",           label: "Most Sixes",            unit: "6s" }
+];
+
+const bowlingMetrics = [
+  { key: "bowlingWickets",  label: "Most Wickets",          unit: "wkts" },
+  { key: "economy",         label: "Best Economy (lower)",  unit: "econ" },
+  { key: "bestBowling",     label: "Best Figures",          unit: "" }
+];
+
+let currentMode = "batting"; // "batting" | "bowling"
+let currentMetricKey = battingMetrics[0].key;
+let leaderboardPlayers = [];
+
+/* Load players JSON from players.html */
+function loadPlayersDataFromPlayersPage() {
+  return fetch("players.html")
+    .then(res => res.text())
+    .then(html => {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = html;
+      const script = wrapper.querySelector("#players-data");
+      if (!script) return [];
+      return JSON.parse(script.textContent || "[]");
+    })
+    .catch(() => []);
+}
+
+/* Build leaderboard-friendly objects */
+function buildLeaderboardPlayers(playersData){
+  return playersData.map(p => {
+    const b = (p.stats && p.stats.batting) || {};
+    const bw = (p.stats && p.stats.bowling) || {};
+
+    const innings = b.innings || 0;
+    const notOuts = b.notOuts || 0;
+    const dismissals = Math.max(innings - notOuts, 0);
+    const battingAverage = dismissals > 0 ? (b.runs || 0) / dismissals : 0;
+    const ballsFaced = b.balls || 0;
+    const strikeRate = ballsFaced > 0 ? (b.runs || 0) * 100 / ballsFaced : 0;
+
+    const ballsBowled = bw.balls || 0;
+    const overs = ballsBowled / 6;
+    const economy = overs > 0 ? (bw.runs || 0) / overs : 0;
+
+    return {
+      name: p.name,
+      role: p.roleText || "",
+      runs: b.runs || 0,
+      fours: b.fours || 0,
+      sixes: b.sixes || 0,
+      battingAverage,
+      strikeRate,
+      bowlingWickets: bw.wickets || 0,
+      bowlingRuns: bw.runs || 0,
+      bowlingBalls: ballsBowled,
+      bestBowling: bw.best || "0/0",
+      economy
+    };
+  });
+}
+
+function buildMetricChips(){
+  const chipsContainer = document.getElementById("metric-chips");
+  chipsContainer.innerHTML = "";
+
+  const metrics = currentMode === "batting" ? battingMetrics : bowlingMetrics;
+
+  metrics.forEach((metric, index) => {
+    const btn = document.createElement("button");
+    btn.className = "metric-chip" + (metric.key === currentMetricKey ? " active" : "");
+    btn.textContent = metric.label;
+    btn.dataset.key = metric.key;
+    btn.addEventListener("click", () => {
+      currentMetricKey = metric.key;
+      updateMetricChips();
+      renderLeaders();
+    });
+    chipsContainer.appendChild(btn);
+
+    if (index === 0 && !metrics.some(m => m.key === currentMetricKey)) {
+      currentMetricKey = metric.key;
+    }
+  });
+}
+
+function updateMetricChips(){
+  document.querySelectorAll(".metric-chip").forEach(chip => {
+    chip.classList.toggle("active", chip.dataset.key === currentMetricKey);
+  });
+}
+
+function renderLeaders(){
+  const listEl = document.getElementById("leaders-list");
+  const emptyEl = document.getElementById("leaders-empty");
+  const titleEl = document.getElementById("leaders-title");
+
+  const metrics = currentMode === "batting" ? battingMetrics : bowlingMetrics;
+  const metric = metrics.find(m => m.key === currentMetricKey) || metrics[0];
+
+  titleEl.textContent = metric.label;
+
+  const list = leaderboardPlayers;
+
+  const sorted = [...list].sort((a,b) => {
+    if (metric.key === "economy") {
+      const av = a.economy || 9999;
+      const bv = b.economy || 9999;
+      return av - bv; // lower economy is better
+    }
+    if (metric.key === "bestBowling") {
+      // You can customise a smarter sort later.
+      return 0;
+    }
+    return (b[metric.key] || 0) - (a[metric.key] || 0);
+  });
+
+  let filtered;
+  if (metric.key === "bestBowling") {
+    filtered = sorted.filter(p => p.bestBowling && p.bestBowling !== "0/0");
+  } else {
+    filtered = sorted.filter(p => (p[metric.key] || 0) > 0);
+  }
+
+  listEl.innerHTML = "";
+
+  if (filtered.length === 0) {
+    emptyEl.style.display = "block";
+    return;
+  }
+
+  emptyEl.style.display = "none";
+
+  filtered.slice(0,5).forEach((player, idx) => {
+    const row = document.createElement("div");
+    row.className = "leader-row";
+
+    const left = document.createElement("div");
+    left.className = "leader-left";
+    left.innerHTML = `
+      <div class="leader-rank">${idx + 1}</div>
+      <div>
+        <div class="leader-name">${player.name}</div>
+        <div class="leader-metric">${player.role}</div>
+      </div>
+    `;
+
+    const right = document.createElement("div");
+    right.className = "leader-value";
+
+    let val = player[metric.key];
+    if (metric.key === "bestBowling") {
+      val = player.bestBowling || "-";
+    }
+
+    right.textContent = metric.unit
+      ? `${val} ${metric.unit}`
+      : `${val}`;
+
+    row.appendChild(left);
+    row.appendChild(right);
+    listEl.appendChild(row);
+  });
+}
+
+function initLeaderModeTabs(){
+  document.querySelectorAll(".leader-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".leader-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentMode = btn.dataset.mode;
+      currentMetricKey = currentMode === "batting"
+        ? battingMetrics[0].key
+        : bowlingMetrics[0].key;
+      buildMetricChips();
+      updateMetricChips();
+      renderLeaders();
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initLeaderModeTabs();
+
+  loadPlayersDataFromPlayersPage().then(playersData => {
+    leaderboardPlayers = buildLeaderboardPlayers(playersData || []);
+    buildMetricChips();
+    updateMetricChips();
+    renderLeaders();
+  });
+});
+</script>
+
+</body>
+</html>
