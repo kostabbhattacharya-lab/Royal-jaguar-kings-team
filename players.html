@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Royal Jaguar Kings - Players & All Time Stats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'Poppins', Arial, sans-serif;
+            background:#020617;
+            color:#e5e7eb;
+            line-height:1.6;
+        }
+        .container { max-width:1120px; margin:0 auto; padding:16px; }
+
+        header {
+            background:linear-gradient(135deg,#020617,#111827);
+            border-bottom:1px solid rgba(148,163,184,0.5);
+            position:sticky; top:0; z-index:20;
+        }
+
+        .header-inner{
+            display:flex;align-items:center;justify-content:space-between;
+            gap:12px;padding-top:8px;
+        }
+        .brand{display:flex;align-items:center;gap:10px;}
+        .brand-logo{
+            width:48px;height:48px;border-radius:16px;
+            border:2px solid #facc15;
+            display:flex;align-items:center;justify-content:center;
+            background:#020617;
+        }
+        .brand-logo span{font-weight:700;font-size:16px;}
+        .brand-text h1{
+            font-size:18px;text-transform:uppercase;letter-spacing:0.12em;
+        }
+        .brand-text p{font-size:11px;color:#9ca3af;}
+
+        .nav-links{
+            display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;padding-bottom:10px;
+        }
+        .nav-links a{
+            color:#e5e7eb;text-decoration:none;font-size:14px;
+            padding:6px 12px;border-radius:999px;border:1px solid transparent;
+        }
+        .nav-links a:hover{
+            color:#facc15;border-color:rgba(250,204,21,0.4);
+            background:rgba(15,23,42,0.9);
+        }
+        .nav-links a.active{
+            background:#facc15;color:#020617;border-color:#facc15;font-weight:600;
+        }
+
+        .page-header{margin-top:18px;margin-bottom:12px;}
+        .page-header h2{font-size:22px;margin-bottom:4px;}
+        .page-header p{font-size:13px;color:#9ca3af;}
+
+        /* Layout: left cards + right stats panel */
+        .layout{
+            display:grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+            gap:16px;
+        }
+
+        /* LEFT: players list */
+        .players-panel{
+            background:#020617;
+            border-radius:18px;
+            border:1px solid #1f2937;
+            padding:10px;
+            box-shadow:0 16px 36px rgba(15,23,42,0.85);
+        }
+        .players-panel-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:8px;
+            margin-bottom:8px;
+        }
+        .players-panel-title{
+            font-size:14px;
+            text-transform:uppercase;
+            letter-spacing:0.12em;
+            color:#9ca3af;
+        }
+
+        /* PREMIUM SEARCH BAR */
+        .search-wrap{
+            flex:1;
+            position:relative;
+        }
+        .search-wrap::before{
+            content:"";
+            position:absolute;
+            inset:-1px;
+            border-radius:999px;
+            background:linear-gradient(120deg,rgba(56,189,248,0.6),rgba(45,212,191,0.3),rgba(129,140,248,0.5));
+            opacity:0;
+            transition:opacity 0.18s ease;
+            z-index:0;
+        }
+        .search-wrap.focused::before{
+            opacity:1;
+        }
+        .search-inner{
+            position:relative;
+            z-index:1;
+            border-radius:999px;
+            background:#020617;
+            padding:1px;
+        }
+        .search-inner input{
+            width:100%;
+            padding:7px 10px 7px 30px;
+            border-radius:999px;
+            border:1px solid #374151;
+            background:radial-gradient(circle at top,#020617 0,#020617 40%,#030712 100%);
+            color:#e5e7eb;
+            font-size:12px;
+            outline:none;
+            transition:all 0.18s ease;
+        }
+        .search-inner input::placeholder{
+            color:#6b7280;
+        }
+        .search-inner input:focus{
+            border-color:transparent;
+            box-shadow:0 0 0 1px rgba(15,23,42,0.9);
+        }
+        .search-icon{
+            position:absolute;
+            left:10px;
+            top:50%;
+            transform:translateY(-50%);
+            font-size:11px;
+            color:#9ca3af;
+            pointer-events:none;
+        }
+
+        .players-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:10px;
+        }
+
+        .player-card{
+            background:#020617;
+            border-radius:14px;
+            border:1px solid #1f2937;
+            padding:8px;
+            cursor:pointer;
+            transition:all 0.18s ease;
+            display:flex;
+            gap:8px;
+        }
+        .player-card:hover{
+            transform:translateY(-2px);
+            border-color:#38bdf8;
+            box-shadow:0 10px 26px rgba(15,23,42,0.95);
+        }
+        .player-card.active{
+            border-color:#facc15;
+            box-shadow:0 0 18px rgba(250,204,21,0.7);
+        }
+
+        .player-photo-wrap{
+            width:56px;height:56px;border-radius:16px;
+            overflow:hidden;border:1px solid #4b5563;
+            background:#020617;
+            flex-shrink:0;
+        }
+        .player-photo-wrap img{
+            width:100%;height:100%;object-fit:cover;
+        }
+
+        .player-mini-text{
+            flex:1;
+        }
+        .player-name{
+            font-size:14px;font-weight:600;color:#facc15;
+        }
+        .player-name.captain{
+            font-size:15px;
+            text-shadow:0 0 10px rgba(250,204,21,0.7);
+        }
+        .player-name.vice{
+            font-size:15px;
+            color:#38bdf8;
+            text-shadow:0 0 10px rgba(56,189,248,0.7);
+        }
+        .player-role{font-size:12px;color:#9ca3af;}
+        .player-mini-tags{
+            margin-top:3px;font-size:11px;color:#cbd5f5;
+        }
+
+        /* RIGHT: main stats card */
+        .stats-panel{
+            background:radial-gradient(circle at top,#0f172a 0,#020617 60%,#000 100%);
+            border-radius:18px;
+            border:1px solid rgba(56,189,248,0.7);
+            padding:12px 14px;
+            box-shadow:
+                0 16px 40px rgba(0,0,0,0.85),
+                0 0 26px rgba(56,189,248,0.4);
+            position:relative;
+            overflow:hidden;
+        }
+        .stats-panel::before{
+            content:'RJK';
+            position:absolute;
+            font-size:60px;
+            color:rgba(15,23,42,0.7);
+            top:-10px;left:-4px;
+            letter-spacing:0.3em;
+        }
+        .stats-panel-inner{
+            position:relative;z-index:2;
+        }
+
+        .focus-header{
+            display:flex;
+            gap:14px;
+            align-items:center;
+            margin-bottom:10px;
+        }
+        .focus-photo{
+            width:90px;height:90px;border-radius:24px;
+            overflow:hidden;
+            flex-shrink:0;
+            border:3px solid #4ade80;
+            box-shadow:0 0 20px rgba(74,222,128,0.8);
+            background:#020617;
+            position:relative;
+        }
+        .focus-photo img{
+            width:100%;height:100%;object-fit:cover;
+        }
+        .focus-photo::after{
+            content:'';
+            position:absolute;
+            inset:0;
+            background:radial-gradient(circle at 20% 0,rgba(255,255,255,0.22),transparent 60%);
+            mix-blend-mode:screen;
+            pointer-events:none;
+        }
+
+        .focus-main{
+            flex:1;
+        }
+        .focus-name{
+            font-size:20px;
+            font-weight:700;
+            color:#fef9c3;
+        }
+        .focus-name.captain{
+            font-size:22px;
+            text-shadow:0 0 16px rgba(250,204,21,0.85);
+        }
+        .focus-name.vice{
+            font-size:21px;
+            color:#7dd3fc;
+            text-shadow:0 0 16px rgba(125,211,252,0.85);
+        }
+        .focus-subline{
+            font-size:12px;color:#9ca3af;margin-top:2px;
+        }
+        .focus-tags{
+            margin-top:6px;font-size:11px;
+        }
+        .focus-tag{
+            display:inline-block;
+            padding:2px 8px;
+            border-radius:999px;
+            border:1px solid rgba(156,163,175,0.7);
+            margin-right:6px;margin-top:4px;
+        }
+        .focus-tag.captain{
+            border-color:#facc15;
+            color:#facc15;
+            background:rgba(250,204,21,0.1);
+        }
+        .focus-tag.vice{
+            border-color:#38bdf8;
+            color:#38bdf8;
+            background:rgba(56,189,248,0.1);
+        }
+
+        .focus-summary-row{
+            display:flex;
+            gap:10px;
+            margin-top:10px;
+            flex-wrap:wrap;
+        }
+        .summary-pill{
+            flex:1;
+            min-width:90px;
+            padding:6px 8px;
+            border-radius:12px;
+            background:rgba(15,23,42,0.95);
+            border:1px solid rgba(148,163,184,0.7);
+            text-align:center;
+        }
+        .summary-label{
+            font-size:10px;text-transform:uppercase;
+            letter-spacing:0.08em;color:#9ca3af;
+        }
+        .summary-value{
+            margin-top:3px;font-size:15px;font-weight:700;
+        }
+
+        /* Tabs (Batting / Bowling / Fielding) */
+        .stats-tabs{
+            display:flex;
+            gap:8px;
+            margin-top:14px;
+            flex-wrap:wrap;
+        }
+        .stats-tab{
+            flex:1;
+            border:none;
+            padding:6px 10px;
+            border-radius:999px;
+            font-size:12px;
+            background:rgba(15,23,42,0.9);
+            color:#e5e7eb;
+            cursor:pointer;
+            text-transform:uppercase;
+            letter-spacing:0.08em;
+            border:1px solid rgba(55,65,81,0.9);
+            transition:all 0.18s ease;
+        }
+        .stats-tab.active{
+            background:#22c55e;
+            color:#022c22;
+            border-color:#22c55e;
+            box-shadow:0 0 16px rgba(34,197,94,0.9);
+        }
+
+        .scope-label{
+            margin-top:6px;
+            font-size:11px;
+            color:#9ca3af;
+            text-transform:uppercase;
+            letter-spacing:0.12em;
+        }
+
+        .stats-grid{
+            margin-top:10px;
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:10px;
+        }
+        .stat-box{
+            padding:8px 9px;
+            border-radius:12px;
+            background:rgba(15,23,42,0.96);
+            border:1px solid rgba(37,99,235,0.8);
+            text-align:center;
+            animation: statPop 0.3s ease-out;
+        }
+        .stat-label{
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:0.08em;
+            color:#9ca3af;
+        }
+        .stat-value{
+            margin-top:4px;
+            font-size:16px;
+            font-weight:700;
+        }
+
+        .stats-note{
+            margin-top:8px;
+            font-size:11px;
+            color:#9ca3af;
+            text-align:center;
+        }
+
+        @keyframes statPop{
+            from {opacity:0; transform:translateY(4px) scale(0.98);}
+            to   {opacity:1; transform:translateY(0) scale(1);}
+        }
+
+        footer{
+            text-align:center;
+            padding:18px 0 22px;
+            font-size:11px;
+            color:#9ca3af;
+            margin-top:26px;
+        }
+
+        @media (max-width:900px){
+            .layout{grid-template-columns:1fr;}
+            .stats-panel{order:-1;}
+        }
+        @media (max-width:768px){
+            .header-inner{flex-direction:column;align-items:flex-start;}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-inner">
+        <div class="brand">
+            <div class="brand-logo"><span>RJK</span></div>
+            <div class="brand-text">
+                <h1>Royal Jaguar Kings</h1>
+                <p>Players • Roles • All Time Stats</p>
+            </div>
+        </div>
+        <nav>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="players.html" class="active">Players</a>
+                <a href="tournament.html">Tournament</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="page-header">
+        <h2>Squad &amp; Player Centre</h2>
+        <p>
+            This page shows <strong>all-time stats</strong> only. Use the search bar or click a player card on the left.
+            The panel on the right displays photo and full batting / bowling / fielding stats with automatic calculations.
+        </p>
+    </section>
+
+    <section class="layout">
+
+        <!-- LEFT: PLAYERS LIST -->
+        <section class="players-panel">
+            <div class="players-panel-header">
+                <div class="players-panel-title">Squad List</div>
+                <div class="search-wrap" id="search-wrap">
+                    <div class="search-inner">
+                        <span class="search-icon">🔍</span>
+                        <input id="player-search" type="text" placeholder="Search by player name...">
+                    </div>
+                </div>
+            </div>
+            <div class="players-grid" id="players-grid">
+                <!-- Filled by JS -->
+            </div>
+        </section>
+
+        <!-- RIGHT: MAIN STATS PANEL -->
+        <section class="stats-panel">
+            <div class="stats-panel-inner">
+                <div class="focus-header">
+                    <div class="focus-photo">
+                        <img id="focus-photo" src="https://via.placeholder.com/300x300.png?text=Player" alt="Player">
+                    </div>
+                    <div class="focus-main">
+                        <div id="focus-name" class="focus-name">Select a player</div>
+                        <div id="focus-subline" class="focus-subline">
+                            Role • Team
+                        </div>
+                        <div class="focus-tags" id="focus-tags">
+                            <!-- badges -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="focus-summary-row">
+                    <div class="summary-pill">
+                        <div class="summary-label">Matches</div>
+                        <div class="summary-value" id="sum-mat">0</div>
+                    </div>
+                    <div class="summary-pill">
+                        <div class="summary-label">Runs</div>
+                        <div class="summary-value" id="sum-runs">0</div>
+                    </div>
+                    <div class="summary-pill">
+                        <div class="summary-label">Wickets</div>
+                        <div class="summary-value" id="sum-wkts">0</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="stats-tabs">
+                    <button class="stats-tab active" data-type="batting">Batting</button>
+                    <button class="stats-tab" data-type="bowling">Bowling</button>
+                    <button class="stats-tab" data-type="fielding">Fielding</button>
+                </div>
+
+                <div class="scope-label">All time numbers</div>
+
+                <!-- Dynamic stats -->
+                <div class="stats-grid" id="stats-grid">
+                    <!-- Filled by JS -->
+                </div>
+
+                <div class="stats-note" id="stats-note">
+                    Click any player card or use the search bar to view detailed all-time stats.
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+</main>
+
+<footer>
+    © 2025 Royal Jaguar Kings Cricket Team. All rights reserved.
+</footer>
+
+<!-- 🔴 THIS IS THE ONLY PLACE YOU UPDATE STATS -->
+<script id="players-data" type="application/json">
+[
+  {
+    "key": "Akash",
+    "name": "Akash",
+    "team": "Royal Jaguar Kings",
+    "roleText": "Right-hand batsman • Finisher",
+    "isCaptain": false,
+    "isVice": false,
+    "tags": ["Middle Order", "Finisher"],
+    "photo": "https://via.placeholder.com/300x300.png?text=Akash",
+    "stats": {
+      "batting": {
+        "matches": 0,
+        "innings": 0,
+        "notOuts": 0,
+        "runs": 0,
+        "balls": 0,
+        "fours": 0,
+        "sixes": 0,
+        "ducks": 0,
+        "highest": "-"
+      },
+      "bowling": {
+        "matches": 0,
+        "innings": 0,
+        "balls": 0,
+        "runs": 0,
+        "wickets": 0,
+        "best": "0/0",
+        "threeW": 0,
+        "fiveW": 0
+      },
+      "fielding": {
+        "catches": 0,
+        "runouts": 0,
+        "stumpings": 0
+      }
+    }
+  },
+  {
+    "key": "Joydeep",
+    "name": "Joydeep",
+    "team": "Royal Jaguar Kings",
+    "roleText": "All-rounder • Off Spin",
+    "isCaptain": true,
+    "isVice": false,
+    "tags": ["All-rounder", "Off Spin"],
+    "photo": "https://raw.githubusercontent.com/kostabbhattacharya-lab/Royal-jaguar-kings-team/refs/heads/main/IMG-20251204-WA0029.jpg",
+    "stats": {
+      "batting": {
+        "matches": 0,
+        "innings": 0,
+        "notOuts": 0,
+        "runs": 0,
+        "balls": 0,
+        "fours": 0,
+        "sixes": 0,
+        "ducks": 0,
+        "highest": "-"
+      },
+      "bowling": {
+        "matches": 0,
+        "innings": 0,
+        "balls": 0,
+        "runs": 0,
+        "wickets": 0,
+        "best": "0/0",
+        "threeW": 0,
+        "fiveW": 0
+      },
+      "fielding": {
+        "catches": 0,
+        "runouts": 0,
+        "stumpings": 0
+      }
+    }
+  },
+  {
+    "key": "Souhardya",
+    "name": "Souhardya Das",
+    "team": "Royal Jaguar Kings",
+    "roleText": "All-rounder • Spin",
+    "isCaptain": false,
+    "isVice": false,
+    "tags": ["Top Order", "Spin"],
+    "photo": "https://via.placeholder.com/300x300.png?text=Player",
+    "stats": {
+      "batting": {
+        "matches": 0,
+        "innings": 0,
+        "notOuts": 0,
+        "runs": 0,
+        "balls": 0,
+        "fours": 0,
+        "sixes": 0,
+        "ducks": 0,
+        "highest": "-"
+      },
+      "bowling": {
+        "matches": 0,
+        "innings": 0,
+        "balls": 0,
+        "runs": 0,
+        "wickets": 0,
+        "best": "0/0",
+        "threeW": 0,
+        "fiveW": 0
+      },
+      "fielding": {
+        "catches": 0,
+        "runouts": 0,
+        "stumpings": 0
+      }
+    }
+  }
+]
+</script>
+
+<script>
+/*
+   Batting input per player (inside JSON above):
+   matches, innings, notOuts, runs, balls, fours, sixes, ducks, highest
+
+   Calculated here:
+   - dismissals  = innings - notOuts
+   - average     = dismissals > 0 ? runs / dismissals : 0
+   - strikeRate  = balls > 0 ? (runs * 100) / balls : 0
+
+   Bowling input:
+   matches, innings, balls, runs, wickets, best, threeW, fiveW
+
+   Calculated:
+   - overs    = balls / 6
+   - econ     = overs > 0 ? runs / overs : 0
+   - bowlAvg  = wickets > 0 ? runs / wickets : 0
+   - bowlSR   = wickets > 0 ? balls / wickets : 0
+*/
+
+const DEFAULT_PHOTO =
+  "https://via.placeholder.com/300x300.png?text=Player";
+
+const playersData = JSON.parse(
+  document.getElementById("players-data").textContent || "[]"
+);
+
+function getQueryParam(name){
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}
+
+let currentType = "batting";
+let currentKey = null;
+
+function formatNumber(num, decimals = 2){
+  if(num === null || num === undefined || isNaN(num)) return "0";
+  return Number(num).toFixed(decimals);
+}
+
+/* Render player cards (supports search filter) */
+function renderPlayerCards(filterText = ""){
+  const grid = document.getElementById("players-grid");
+  grid.innerHTML = "";
+
+  const q = filterText.trim().toLowerCase();
+
+  playersData
+    .filter(p => {
+      if(!q) return true;
+      return (
+        p.name.toLowerCase().includes(q) ||
+        (p.tags || []).some(t => t.toLowerCase().includes(q))
+      );
+    })
+    .forEach(p => {
+      const card = document.createElement("article");
+      card.className = "player-card";
+      card.dataset.key = p.key;
+
+      const isC = p.isCaptain;
+      const isVC = p.isVice;
+
+      const nameClass = isC ? "player-name captain" :
+                       isVC ? "player-name vice"    :
+                              "player-name";
+
+      card.innerHTML = `
+        <div class="player-photo-wrap">
+          <img src="${p.photo || DEFAULT_PHOTO}" alt="${p.name}">
+        </div>
+        <div class="player-mini-text">
+          <div class="${nameClass}">${p.name}${isC ? " (C)" : isVC ? " (VC)" : ""}</div>
+          <div class="player-role">${p.roleText}</div>
+          <div class="player-mini-tags">
+            ${(p.tags || []).map(t => `<span>${t}</span>`).join(" • ")}
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", () => selectPlayer(p.key, true));
+      grid.appendChild(card);
+    });
+
+  // Keep highlight for current selected player (if visible)
+  if(currentKey){
+    const activeCard = document.querySelector(`.player-card[data-key="${currentKey}"]`);
+    document.querySelectorAll(".player-card").forEach(c => {
+      c.classList.toggle("active", c === activeCard);
+    });
+  }
+}
+
+/* Main select function */
+function selectPlayer(key, smoothScroll){
+  const player = playersData.find(p => p.key === key);
+  if(!player) return;
+  currentKey = key;
+
+  // Highlight active card
+  document.querySelectorAll(".player-card").forEach(c => {
+    c.classList.toggle("active", c.dataset.key === key);
+  });
+
+  // Name & photo
+  const nameEl = document.getElementById("focus-name");
+  nameEl.className = "focus-name";
+  if(player.isCaptain) nameEl.classList.add("captain");
+  if(player.isVice) nameEl.classList.add("vice");
+  nameEl.textContent = player.name + (player.isCaptain ? " (C)" : player.isVice ? " (VC)" : "");
+
+  document.getElementById("focus-photo").src = player.photo || DEFAULT_PHOTO;
+  document.getElementById("focus-subline").textContent =
+    (player.roleText || "") + " • " + (player.team || "");
+
+  // Tags
+  const tagsWrap = document.getElementById("focus-tags");
+  let tagHtml = "";
+  if(player.isCaptain){
+    tagHtml += `<span class="focus-tag captain">Captain</span>`;
+  }
+  if(player.isVice){
+    tagHtml += `<span class="focus-tag vice">Vice Captain</span>`;
+  }
+  (player.tags || []).forEach(t => {
+    tagHtml += `<span class="focus-tag">${t}</span>`;
+  });
+  tagsWrap.innerHTML = tagHtml;
+
+  // Summary pills (matches, runs, wickets)
+  const bat = player.stats?.batting || {};
+  const bowl = player.stats?.bowling || {};
+  document.getElementById("sum-mat").textContent = bat.matches ?? 0;
+  document.getElementById("sum-runs").textContent = bat.runs ?? 0;
+  document.getElementById("sum-wkts").textContent = bowl.wickets ?? 0;
+
+  updateStatsGrid();
+
+  const note = document.getElementById("stats-note");
+  note.textContent = "Use the tabs to switch between batting, bowling and fielding all-time numbers.";
+
+  if(smoothScroll){
+    document.querySelector(".stats-panel").scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  }
+}
+
+/* Stats grid update based on current type */
+function updateStatsGrid(){
+  const grid = document.getElementById("stats-grid");
+  grid.innerHTML = "";
+
+  const player = playersData.find(p => p.key === currentKey);
+  if(!player){
+    grid.innerHTML = "<div class='stat-box'><div class='stat-label'>Select</div><div class='stat-value'>Player</div></div>";
+    return;
+  }
+
+  let items = [];
+
+  if(currentType === "batting"){
+    const b = player.stats?.batting || {};
+    const dismissals = Math.max((b.innings ?? 0) - (b.notOuts ?? 0), 0);
+    const avg = dismissals > 0 ? b.runs / dismissals : 0;
+    const sr  = (b.balls ?? 0) > 0 ? (b.runs * 100) / b.balls : 0;
+
+    items = [
+      ["Matches", b.matches ?? 0],
+      ["Innings", b.innings ?? 0],
+      ["Not Outs", b.notOuts ?? 0],
+      ["Runs", b.runs ?? 0],
+      ["Balls", b.balls ?? 0],
+      ["Average", dismissals > 0 ? formatNumber(avg,2) : "-"],
+      ["Strike Rate", (b.balls ?? 0) > 0 ? formatNumber(sr,2) : "-"],
+      ["4s", b.fours ?? 0],
+      ["6s", b.sixes ?? 0],
+      ["Ducks", b.ducks ?? 0],
+      ["Highest", b.highest ?? "-"]
+    ];
+  } else if(currentType === "bowling"){
+    const bw = player.stats?.bowling || {};
+    const overs = (bw.balls ?? 0) / 6;
+    const econ = overs > 0 ? bw.runs / overs : 0;
+    const avg  = (bw.wickets ?? 0) > 0 ? bw.runs / bw.wickets : 0;
+    const sr   = (bw.wickets ?? 0) > 0 ? bw.balls / bw.wickets : 0;
+
+    items = [
+      ["Matches", bw.matches ?? 0],
+      ["Innings", bw.innings ?? 0],
+      ["Balls", bw.balls ?? 0],
+      ["Overs", overs > 0 ? formatNumber(overs,1) : "0"],
+      ["Runs Conceded", bw.runs ?? 0],
+      ["Wickets", bw.wickets ?? 0],
+      ["Bowl Average", (bw.wickets ?? 0) > 0 ? formatNumber(avg,2) : "-"],
+      ["Bowl Strike Rate", (bw.wickets ?? 0) > 0 ? formatNumber(sr,2) : "-"],
+      ["Economy", overs > 0 ? formatNumber(econ,2) : "-"],
+      ["Best Bowling", bw.best ?? "-"],
+      ["3-fer", bw.threeW ?? 0],
+      ["5-fer", bw.fiveW ?? 0]
+    ];
+  } else if(currentType === "fielding"){
+    const f = player.stats?.fielding || {};
+    items = [
+      ["Catches", f.catches ?? 0],
+      ["Run-outs", f.runouts ?? 0],
+      ["Stumpings", f.stumpings ?? 0]
+    ];
+  }
+
+  items.forEach(([label, value]) => {
+    const box = document.createElement("div");
+    box.className = "stat-box";
+    box.innerHTML = `
+      <div class="stat-label">${label}</div>
+      <div class="stat-value">${value}</div>
+    `;
+    grid.appendChild(box);
+  });
+}
+
+/* Tabs handlers */
+function initTabs(){
+  document.querySelectorAll(".stats-tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".stats-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentType = btn.dataset.type;
+      updateStatsGrid();
+    });
+  });
+}
+
+/* Search handler + glow */
+function initSearch(){
+  const input = document.getElementById("player-search");
+  const wrap = document.getElementById("search-wrap");
+
+  input.addEventListener("input", () => {
+    const q = input.value;
+    renderPlayerCards(q);
+  });
+
+  input.addEventListener("focus", () => {
+    wrap.classList.add("focused");
+  });
+  input.addEventListener("blur", () => {
+    wrap.classList.remove("focused");
+  });
+}
+
+/* Init */
+document.addEventListener("DOMContentLoaded", function(){
+  renderPlayerCards();
+  initTabs();
+  initSearch();
+
+  const fromUrlPlayer = getQueryParam("player");
+  if(fromUrlPlayer){
+    // Coming from tournament page – find by partial name
+    const found = playersData.find(
+      p => p.name.toLowerCase().includes(fromUrlPlayer.toLowerCase())
+    );
+    if(found){
+      selectPlayer(found.key, true);
+      return;
+    }
+  }
+
+  if(playersData.length){
+    selectPlayer(playersData[0].key, false);
+  }
+});
+</script>
+
+</body>
+</html>
