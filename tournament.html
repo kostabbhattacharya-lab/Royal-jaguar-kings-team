@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RJKPL Season 5 - Tournament Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Poppins',sans-serif;
+    color:#e5e7eb;
+    background:radial-gradient(circle at top,#020617 0,#020617 40%,#000311 100%);
+    line-height:1.6;
+}
+.container{
+    max-width:1120px;
+    margin:0 auto;
+    padding:18px;
+}
+
+/* HEADER – match index / players theme */
+header{
+    background:linear-gradient(135deg,#020617,#020617 40%,#0b1220 100%);
+    border-bottom:1px solid rgba(148,163,184,0.5);
+    position:sticky;
+    top:0;
+    z-index:40;
+    box-shadow:0 10px 30px rgba(0,0,0,0.7);
+}
+.header-row{
+    max-width:1120px;
+    margin:0 auto;
+    padding:8px 18px 6px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.brand-logo{
+    width:48px;
+    height:48px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#020617;
+    border:2px solid #facc15;
+    box-shadow:0 0 22px rgba(250,204,21,0.5);
+    font-family:'Bebas Neue',system-ui;
+    letter-spacing:0.14em;
+    font-size:15px;
+}
+.brand-text h1{
+    font-size:18px;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-family:'Bebas Neue',system-ui;
+}
+.brand-text p{
+    font-size:11px;
+    color:#9ca3af;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+}
+.nav-links{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+.nav-links a{
+    font-size:12px;
+    padding:5px 10px;
+    border-radius:999px;
+    text-decoration:none;
+    color:#e5e7eb;
+    border:1px solid transparent;
+}
+.nav-links a:hover{
+    background:rgba(15,23,42,0.9);
+    border-color:rgba(148,163,184,0.7);
+}
+.nav-links a.active{
+    background:#facc15;
+    color:#020617;
+    border-color:#facc15;
+    font-weight:600;
+}
+
+/* TOP TABS */
+.top-nav{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    padding:6px 18px 10px;
+    border-top:1px solid rgba(31,41,55,0.9);
+    background:rgba(2,6,23,0.9);
+}
+.top-nav button{
+    border:none;
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    cursor:pointer;
+    background:rgba(15,23,42,0.9);
+    color:#e5e7eb;
+    border:1px solid rgba(55,65,81,0.9);
+    transition:all 0.2s ease;
+}
+.top-nav button.active{
+    background:#22c55e;
+    color:#022c22;
+    box-shadow:0 0 18px rgba(34,197,94,0.9);
+    transform:translateY(-1px);
+}
+
+/* BANNER + CUP ANIMATION */
+.banner{
+    margin-top:18px;
+    padding:18px;
+    border-radius:20px;
+    background:radial-gradient(circle at top left,#0f172a 0,#020617 55%,#000 100%);
+    box-shadow:0 18px 50px rgba(0,0,0,0.7);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+}
+.banner::before{
+    content:'RJKPL';
+    position:absolute;
+    font-family:'Bebas Neue',system-ui;
+    font-size:60px;
+    color:rgba(15,23,42,0.7);
+    letter-spacing:0.28em;
+    top:-2px;
+    left:-4px;
+}
+.banner-main{
+    position:relative;
+    z-index:2;
+    max-width:620px;
+}
+.banner h2{
+    font-size:26px;
+    margin-bottom:6px;
+    font-weight:700;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-family:'Bebas Neue',system-ui;
+}
+.banner p{
+    font-size:13px;
+    color:#d1d5db;
+}
+.info-line{
+    margin-top:4px;
+    font-size:12px;
+    color:#9ca3af;
+}
+.info-highlight{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:4px 10px;
+    border-radius:999px;
+    background:rgba(15,23,42,0.9);
+    border:1px solid rgba(250,204,21,0.7);
+    margin-top:10px;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+}
+
+/* Trophy animation */
+.trophy-wrap{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.trophy-circle{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 20%,#fef9c3 0,#facc15 45%,#92400e 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:
+        0 0 25px rgba(250,204,21,0.9),
+        0 0 60px rgba(234,179,8,0.5);
+    animation:trophyFloat 3s ease-in-out infinite alternate;
+    position:relative;
+}
+.trophy-circle::after{
+    content:'';
+    position:absolute;
+    inset:10px;
+    border-radius:50%;
+    border:2px solid rgba(250,250,250,0.25);
+}
+.trophy-emoji{
+    font-size:34px;
+    text-shadow:0 0 18px rgba(251,191,36,0.9);
+}
+
+@keyframes trophyFloat{
+    from{transform:translateY(0);}
+    to{transform:translateY(-10px);}
+}
+
+/* SELECTOR */
+.selector-box{
+    margin-top:20px;
+    background:rgba(2,6,23,0.96);
+    padding:14px 16px;
+    border-radius:18px;
+    border:1px solid rgba(31,41,55,0.9);
+    box-shadow:0 14px 32px rgba(15,23,42,0.9);
+}
+.selector-box label{
+    display:block;
+    font-size:11px;
+    margin-bottom:4px;
+    color:#9ca3af;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+}
+select{
+    width:100%;
+    padding:8px 12px;
+    background:#020617;
+    color:#e5e7eb;
+    border:1px solid #4b5563;
+    border-radius:999px;
+    font-size:13px;
+    outline:none;
+    transition:all 0.18s ease;
+}
+select:focus{
+    border-color:#0ea5e9;
+    box-shadow:0 0 0 1px rgba(56,189,248,0.7);
+}
+
+/* VIEW WRAPPER */
+.view-wrapper{margin-top:18px;}
+.view-section{display:none;}
+.view-section.active{
+    display:block;
+    animation:fadeIn 0.2s ease-out;
+}
+
+/* TEAM CARD */
+.team-card{
+    margin-top:6px;
+    padding:18px;
+    background:radial-gradient(circle at top,#0f172a 0,#020617 55%,#000 100%);
+    border-radius:20px;
+    border:1px solid rgba(56,189,248,0.6);
+    box-shadow:
+        0 18px 46px rgba(0,0,0,0.85),
+        0 0 30px rgba(59,130,246,0.35);
+    position:relative;
+    overflow:hidden;
+}
+.team-card::before{
+    content:'TEAM HUB';
+    position:absolute;
+    font-family:'Bebas Neue',system-ui;
+    font-size:46px;
+    color:rgba(15,23,42,0.7);
+    letter-spacing:0.28em;
+    top:-4px;
+    right:-6px;
+}
+.team-header{
+    display:flex;
+    gap:14px;
+    align-items:center;
+    position:relative;
+    z-index:2;
+}
+.team-logo{
+    width:80px;
+    height:80px;
+    border-radius:50%;              /* circle */
+    overflow:hidden;
+    background:#020617;
+    border:none;                    /* no border */
+    box-shadow:0 0 22px rgba(59,130,246,0.7);
+    flex-shrink:0;
+}
+.team-logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.team-main{flex:1;}
+.team-name{
+    font-size:26px;
+    font-weight:700;
+    color:#fefce8;
+    font-family:'Bebas Neue',system-ui;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    text-shadow:0 0 18px rgba(251,191,36,0.9);
+}
+.team-tagline{
+    font-size:11px;
+    color:#93c5fd;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    margin-top:2px;
+}
+.team-desc{
+    font-size:13px;
+    margin-top:6px;
+    color:#d1d5db;
+}
+
+/* SQUAD */
+.squad-title{
+    font-size:13px;
+    color:#f9fafb;
+    margin-top:18px;
+    margin-bottom:6px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:relative;
+    z-index:2;
+}
+.squad-title span.small{
+    font-size:10px;
+    color:#9ca3af;
+    text-transform:none;
+    letter-spacing:0.04em;
+}
+.squad-list{
+    list-style:none;
+    background:rgba(15,23,42,0.96);
+    border-radius:16px;
+    border:1px solid rgba(55,65,81,0.9);
+    padding:4px 0;
+    position:relative;
+    z-index:2;
+    overflow:hidden;
+}
+.squad-list li{
+    padding:7px 10px;
+    font-size:13px;
+    border-bottom:1px solid rgba(31,41,55,0.8);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    cursor:pointer;
+    transition:background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
+}
+.squad-list li:last-child{border-bottom:none;}
+.squad-list li:hover{
+    background:rgba(8,47,73,0.95);
+    transform:translateX(2px);
+    border-color:rgba(56,189,248,0.8);
+}
+
+.player-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.jersey-number{
+    width:22px;
+    height:22px;
+    border-radius:7px;
+    font-size:11px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#22c55e,#0ea5e9);
+    color:#020617;
+    box-shadow:0 0 14px rgba(45,212,191,0.8);
+    flex-shrink:0;
+}
+
+/* circular player photo in squad */
+.player-photo-circle{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    overflow:hidden;
+    background:#020617;
+    flex-shrink:0;
+}
+.player-photo-circle img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.player-name{font-size:13px;}
+.player-name.captain{
+    font-weight:700;
+    font-size:14px;
+    color:#facc15;
+    text-shadow:0 0 10px rgba(250,204,21,0.7);
+}
+.player-name.vice{
+    font-weight:600;
+    font-size:14px;
+    color:#38bdf8;
+    text-shadow:0 0 10px rgba(56,189,248,0.7);
+}
+.role-badge{
+    font-size:10px;
+    padding:2px 7px;
+    border-radius:999px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    border:1px solid;
+}
+.role-badge.captain{
+    background:rgba(250,204,21,0.1);
+    color:#facc15;
+    border-color:rgba(250,204,21,0.8);
+}
+.role-badge.vice{
+    background:rgba(56,189,248,0.1);
+    color:#38bdf8;
+    border-color:rgba(56,189,248,0.8);
+}
+.player-right{
+    font-size:11px;
+    color:#9ca3af;
+}
+
+/* MATCHES (TEAM) */
+.match-title{
+    font-size:12px;
+    color:#f9fafb;
+    margin-top:18px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    position:relative;
+    z-index:2;
+}
+.match-card{
+    margin-top:8px;
+    background:rgba(15,23,42,0.96);
+    padding:9px 11px;
+    border-radius:12px;
+    border:1px solid rgba(52,211,153,0.45);
+    position:relative;
+    overflow:hidden;
+}
+.match-card p{
+    font-size:12px;
+    color:#e0f2fe;
+}
+
+/* MATCH CENTRE (GLOBAL SCHEDULE) */
+.matches-wrapper{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:6px;
+}
+.big-match-card{
+    background:radial-gradient(circle at top,#0f172a 0,#020617 55%,#000 100%);
+    border-radius:20px;
+    border:1px solid rgba(56,189,248,0.6);
+    padding:14px 14px 16px;
+    box-shadow:
+        0 18px 44px rgba(0,0,0,0.85),
+        0 0 30px rgba(59,130,246,0.35);
+    position:relative;
+    overflow:hidden;
+}
+.big-match-card::before{
+    content:'FIXTURE';
+    position:absolute;
+    font-family:'Bebas Neue',system-ui;
+    font-size:42px;
+    color:rgba(15,23,42,0.7);
+    letter-spacing:0.3em;
+    top:-2px;
+    left:-4px;
+}
+.match-main-row{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    position:relative;
+    z-index:2;
+}
+
+/* schedule logos: circle, no border, aligned vertical */
+.match-team-block{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+}
+.match-logo{
+    width:70px;
+    height:70px;
+    border-radius:50%;          /* circle */
+    overflow:hidden;
+    border:none;                /* no border */
+    background:#020617;
+    box-shadow:0 0 20px rgba(59,130,246,0.7);
+}
+.match-logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.match-team-name{
+    font-family:'Bebas Neue',system-ui;
+    font-size:18px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:#e5e7eb;
+    text-align:center;
+}
+.vs-pillar{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+}
+.vs-text{
+    font-family:'Bebas Neue',system-ui;
+    font-size:26px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:#facc15;
+    text-shadow:0 0 18px rgba(234,179,8,0.9);
+}
+.stage-pill{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    padding:3px 10px;
+    border-radius:999px;
+    background:rgba(15,23,42,0.9);
+    border:1px solid rgba(148,163,184,0.6);
+    color:#cbd5f5;
+}
+
+.match-meta{
+    margin-top:10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:12px;
+    color:#cbd5f5;
+    position:relative;
+    z-index:2;
+    justify-content:center;
+}
+.meta-pill{
+    padding:3px 10px;
+    border-radius:999px;
+    background:rgba(15,23,42,0.95);
+    border:1px solid rgba(59,130,246,0.7);
+}
+.meta-pill.venue{border-color:rgba(52,211,153,0.7);}
+.meta-pill.time{border-color:rgba(248,250,252,0.5);}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    margin-top:28px;
+    font-size:11px;
+    color:#9ca3af;
+    padding-bottom:18px;
+    opacity:0.85;
+}
+
+/* ANIMATIONS + RESPONSIVE */
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(6px);}
+    to{opacity:1;transform:translateY(0);}
+}
+@media (max-width:640px){
+    .banner{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+    .banner h2{font-size:22px;}
+    .team-name{font-size:22px;letter-spacing:0.1em;}
+}
+</style>
+
+<script>
+// --------- DATA (same as pehle) --------- //
+const teams = {
+    "Lightning Strikers": {
+        logo: "https://raw.githubusercontent.com/kostabbhattacharya-lab/Royal-jaguar-kings-team/refs/heads/main/IMG-20251130-WA0052.jpg",
+        desc: "High-voltage batting • Fast scoring unit",
+        squad: [
+            "Sujoy (C)",
+            "Borshon (VC)",
+            "Prosenjit",
+            "Sumit",
+            "Sourav",
+            "Dev",
+            "Jit",
+            "Tebla",
+            "Rahul"
+        ],
+        matches: [
+            {date:"14 Dec 2025", time:"8:00 AM", opponent:"Thunder Super Kings", ground:"Main City Ground", stage:"League Match 1"}
+        ]
+    },
+    "Deccan Warriors": {
+        logo: "https://raw.githubusercontent.com/kostabbhattacharya-lab/Royal-jaguar-kings-team/refs/heads/main/IMG-20251122-WA0002.jpg",
+        desc: "Fearless chasers • Strong finishers",
+        squad: [
+            "Joydeep (C)","Koushik","Bikram","Tanoy","Suraj",
+            "Gopal","Mono","Sunondo","Krishanu"
+        ],
+        matches: [
+            {date:"14 Dec 2025", time:"10:30 AM", opponent:"Lucky Team", ground:"Street Ground", stage:"League Match 2"}
+        ]
+    },
+    "Thunder Super Kings": {
+        logo: "https://raw.githubusercontent.com/kostabbhattacharya-lab/Royal-jaguar-kings-team/refs/heads/main/IMG-20251122-WA0011.jpg",
+        desc: "Balanced squad with strong spin attack",
+        squad: [
+            "Souhardya (C)","Rajdeep (VC)","Sahil","Vicky","Rohan",
+            "Leo Dutta","Ranit","Soumyadeep","Sohail"
+        ],
+        matches: [
+            {date:"14 Dec 2025", time:"8:00 AM", opponent:"Lightning Strikers", ground:"Main City Ground", stage:"League Match 1"}
+        ]
+    },
+    "Lucky Team": {
+        logo: "https://raw.githubusercontent.com/kostabbhattacharya-lab/Royal-jaguar-kings-team/refs/heads/main/IMG-20251130-WA0051.jpg",
+        desc: "Clutch performers • Surprising upsets",
+        squad: [
+            "Bappa (C)","Choton (VC)","Prabir","Sunny","Shahzaid",
+            "Sayan","Shayan","Potla","Gill"
+        ],
+        matches: [
+            {date:"14 Dec 2025", time:"10:30 AM", opponent:"Deccan Warriors", ground:"Street Ground", stage:"League Match 2"}
+        ]
+    }
+};
+
+// Global match centre
+const matchCentre = [
+    {
+        date:"14 Dec 2025",
+        time:"8:00 AM",
+        ground:"Main City Ground",
+        stage:"League Match 1",
+        teamA:"Lightning Strikers",
+        teamB:"Thunder Super Kings"
+    },
+    {
+        date:"14 Dec 2025",
+        time:"10:30 AM",
+        ground:"Street Ground",
+        stage:"League Match 2",
+        teamA:"Deccan Warriors",
+        teamB:"Lucky Team"
+    }
+];
+
+const DEFAULT_PHOTO =
+  "https://via.placeholder.com/80x80.png?text=Player";
+
+// players.html se photos lene ke liye map
+let playerPhotos = {};
+
+// ---------- HELPERS ---------- //
+function cleanName(fullName){
+    return fullName.replace(/\((.*?)\)/gi,'').trim();
+}
+function getRole(fullName){
+    const lower = fullName.toLowerCase();
+    if(lower.includes('(c)')) return 'C';
+    if(lower.includes('vc')) return 'VC';
+    return '';
+}
+
+// Tournament page se players.html pe bhejna
+function openPlayerStats(teamName, fullName){
+    const name = cleanName(fullName);
+    const url = "players.html"
+        + "?player=" + encodeURIComponent(name)
+        + "&team="   + encodeURIComponent(teamName);
+    window.location.href = url;
+}
+
+// players.html ke <script id="players-data"> se photos read karna
+function loadPlayerPhotos(){
+    return fetch("players.html")
+        .then(res => res.text())
+        .then(html => {
+            const wrapper = document.createElement("div");
+            wrapper.innerHTML = html;
+            const script = wrapper.querySelector("#players-data");
+            if(!script) return;
+            const players = JSON.parse(script.textContent || "[]");
+            players.forEach(p => {
+                const key = (p.name || "").toLowerCase().trim();
+                if(!key) return;
+                playerPhotos[key] = p.photo || DEFAULT_PHOTO;
+            });
+        })
+        .catch(() => {});
+}
+
+function updateTeam(){
+    const value = document.getElementById("teamSelect").value;
+    const logoEl = document.getElementById("team-logo");
+    const nameEl = document.getElementById("team-name");
+    const tagEl = document.getElementById("team-tagline");
+    const descEl = document.getElementById("team-desc");
+    const squadEl = document.getElementById("squad-list");
+    const matchBox = document.getElementById("match-box");
+
+    if(!value || value === 'Select...'){
+        logoEl.src = "https://via.placeholder.com/120.png?text=Team";
+        nameEl.textContent = "Select a Team";
+        tagEl.textContent = "Team overview • Captain • Squad";
+        descEl.textContent = "Choose a team from the dropdown to view full squad and fixtures.";
+        squadEl.innerHTML = `
+            <li>
+                <div class="player-left">
+                    <div class="jersey-number">-</div>
+                    <div>Select a team from the dropdown</div>
+                </div>
+            </li>
+        `;
+        matchBox.innerHTML = `
+            <div class="match-card">
+                <p>Select a team to view schedule</p>
+            </div>
+        `;
+        return;
+    }
+
+    const data = teams[value];
+
+    logoEl.src = data.logo;
+    nameEl.textContent = value;
+    tagEl.textContent = "Official Squad • " + value.toUpperCase();
+    descEl.textContent = data.desc;
+
+    // Squad list
+    let squadHTML = "";
+    data.squad.forEach((p, index) => {
+        const role = getRole(p);
+        const clean = cleanName(p);
+        const isCaptain = role === 'C';
+        const isVice = role === 'VC';
+
+        const nameClass = isCaptain ? 'player-name captain' :
+                         isVice ? 'player-name vice' : 'player-name';
+
+        const photoKey = clean.toLowerCase();
+        const photoUrl = playerPhotos[photoKey] || DEFAULT_PHOTO;
+
+        let roleBadge = '';
+        if(isCaptain){
+            roleBadge = '<span class="role-badge captain">Captain</span>';
+        } else if(isVice){
+            roleBadge = '<span class="role-badge vice">Vice Captain</span>';
+        }
+
+        squadHTML += `
+            <li onclick="openPlayerStats('${value.replace(/'/g,"\\'")}', '${p.replace(/'/g,"\\'")}')">
+                <div class="player-left">
+                    <div class="jersey-number">${index+1}</div>
+                    <div class="player-photo-circle">
+                        <img src="${photoUrl}" alt="${clean}">
+                    </div>
+                    <div>
+                        <div class="${nameClass}">${clean}</div>
+                        ${roleBadge ? `<div style="margin-top:2px;">${roleBadge}</div>` : ''}
+                    </div>
+                </div>
+                <div class="player-right">Tap for stats</div>
+            </li>
+        `;
+    });
+    squadEl.innerHTML = squadHTML;
+
+    // Matches (team wise)
+    let matchHTML = "";
+    if(data.matches && data.matches.length){
+        data.matches.forEach(m => {
+            matchHTML += `
+                <div class="match-card">
+                    <p><strong>Date:</strong> ${m.date} • <strong>Time:</strong> ${m.time}</p>
+                    <p><strong>Opponent:</strong> ${m.opponent}</p>
+                    <p><strong>Ground:</strong> ${m.ground}</p>
+                    <p><strong>Stage:</strong> ${m.stage || '-'}</p>
+                </div>
+            `;
+        });
+    } else {
+        matchHTML = `
+            <div class="match-card">
+                <p>Schedule not announced yet.</p>
+            </div>
+        `;
+    }
+    matchBox.innerHTML = matchHTML;
+}
+
+function renderMatchCentre(){
+    const wrapper = document.getElementById("match-centre-box");
+    let html = "";
+
+    matchCentre.forEach(m => {
+        const teamA = teams[m.teamA];
+        const teamB = teams[m.teamB];
+
+        html += `
+            <div class="big-match-card">
+                <div class="match-main-row">
+                    <div class="match-team-block">
+                        <div class="match-logo">
+                            <img src="${teamA.logo}" alt="${m.teamA}">
+                        </div>
+                        <div class="match-team-name">${m.teamA}</div>
+                    </div>
+
+                    <div class="vs-pillar">
+                        <div class="vs-text">VS</div>
+                        <div class="stage-pill">${m.stage}</div>
+                    </div>
+
+                    <div class="match-team-block">
+                        <div class="match-logo">
+                            <img src="${teamB.logo}" alt="${m.teamB}">
+                        </div>
+                        <div class="match-team-name">${m.teamB}</div>
+                    </div>
+                </div>
+
+                <div class="match-meta">
+                    <div class="meta-pill"><strong>Date:</strong> ${m.date}</div>
+                    <div class="meta-pill time"><strong>Time:</strong> ${m.time}</div>
+                    <div class="meta-pill venue"><strong>Venue:</strong> ${m.ground}</div>
+                    <div class="meta-pill"><strong>Season:</strong> RJKPL S5</div>
+                </div>
+            </div>
+        `;
+    });
+
+    wrapper.innerHTML = html;
+}
+
+function switchView(view){
+    const teamBtn = document.getElementById("tab-teams");
+    const matchBtn = document.getElementById("tab-matches");
+    const teamSection = document.getElementById("teams-view");
+    const matchSection = document.getElementById("matches-view");
+
+    if(view === 'teams'){
+        teamBtn.classList.add("active");
+        matchBtn.classList.remove("active");
+        teamSection.classList.add("active");
+        matchSection.classList.remove("active");
+    } else {
+        matchBtn.classList.add("active");
+        teamBtn.classList.remove("active");
+        matchSection.classList.add("active");
+        teamSection.classList.remove("active");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+    loadPlayerPhotos().then(() => {
+        renderMatchCentre();
+        updateTeam();
+        switchView('teams');
+    });
+});
+</script>
+
+</head>
+<body>
+
+<header>
+    <div class="header-row">
+        <div class="brand">
+            <div class="brand-logo">RJK</div>
+            <div class="brand-text">
+                <h1>RJKPL Season 5</h1>
+                <p>Royal Jaguar Kings Premier League</p>
+            </div>
+        </div>
+        <nav>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="players.html">Players</a>
+                <a href="tournament.html" class="active">Tournament</a>
+            </div>
+        </nav>
+    </div>
+    <div class="top-nav">
+        <button id="tab-teams" class="active" onclick="switchView('teams')">Teams Hub</button>
+        <button id="tab-matches" onclick="switchView('matches')">Match Centre</button>
+    </div>
+</header>
+
+<div class="container">
+
+    <section class="banner">
+        <div class="banner-main">
+            <h2>Official Tournament Hub</h2>
+            <p class="info-line"><strong>Date:</strong> 14 December 2025 (Sunday)</p>
+            <p class="info-line"><strong>Format:</strong> 4 Teams • League + Knockout</p>
+            <div class="info-highlight">
+                <span>Squads • Fixtures • Stats-linked squads</span>
+            </div>
+        </div>
+        <div class="trophy-wrap">
+            <div class="trophy-circle">
+                <div class="trophy-emoji">🏆</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="selector-box">
+        <label for="teamSelect">Select Team Squad</label>
+        <select id="teamSelect" onchange="updateTeam()">
+            <option>Select...</option>
+            <option>Lightning Strikers</option>
+            <option>Deccan Warriors</option>
+            <option>Thunder Super Kings</option>
+            <option>Lucky Team</option>
+        </select>
+    </div>
+
+    <div class="view-wrapper">
+
+        <!-- TEAMS VIEW -->
+        <section id="teams-view" class="view-section active">
+            <div class="team-card">
+                <div class="team-header">
+                    <div class="team-logo">
+                        <img id="team-logo" src="https://via.placeholder.com/120.png?text=Team" alt="">
+                    </div>
+                    <div class="team-main">
+                        <div id="team-name" class="team-name">Select a Team</div>
+                        <div id="team-tagline" class="team-tagline">Team overview • Captain • Squad</div>
+                        <div id="team-desc" class="team-desc">
+                            Choose a team from the dropdown to view full squad, captains and fixtures.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="squad-title">
+                    Squad
+                    <span class="small">Tap any player to open stats page (same photo as Players page)</span>
+                </div>
+                <ul class="squad-list" id="squad-list">
+                    <li>
+                        <div class="player-left">
+                            <div class="jersey-number">-</div>
+                            <div>Select a team from the dropdown</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="match-title">Upcoming Matches</div>
+                <div id="match-box">
+                    <div class="match-card">
+                        <p>Select a team to view schedule</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATCHES VIEW -->
+        <section id="matches-view" class="view-section">
+            <div class="matches-wrapper" id="match-centre-box">
+                <!-- JS fills fixtures -->
+            </div>
+        </section>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2025 RJKPL Tournament. All rights reserved.
+</footer>
+
+</body>
+</html>
